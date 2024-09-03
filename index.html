@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Esp32 Cam</title>
+</head>
+<body>
+    
+
+
+    <div class="container">
+        <h1>Face Recognition Based Attendance System using ESP32 CAM</h1>
+
+        <img src="assets/img/1.jpg" alt="no Preview">
+
+        <h3>Overview: Face Recognition Attendance System using ESP32 CAM</h3>
+
+        <p>This tutorial introduces the topic of the <span> Face Recognition Based Attendance System </span> using <span> ESP32 CAM Module.</span> We will be using <span> OpenCV </span> &  <span>Visual Studio </span> for this application. OpenCV is an open-sourced <span>image processing library </span>that is very widely used not just in industry but also in the field of research and development. Visual Studio is an IDE made by <span> Microsoft </span> for different types of <span>software development </span> & contains completion tools, compilers, and other features to facilitate the <span>software development process.</span> <br> 
+            In this project we will learn, how to create a </span> Face Recognition Based Attendance system using <span> ESP32 CAM and Python.</span> The main heavy program will be at the server-side that is our computer, or one can even use raspberry-pi as a server. In this attendance system, we will not just <span>detect </span> the person but also store the information of the person detected in a Microsoft Excel File. Moreover, the duration of time they have stayed in the frame is also recorded into an <span> excel sheet.</span> <br>
+            The tutorial also contains information about features, pins description, and the method to program ESP32 Camera Module using <span>FTDI Module.</span> We will also set up the <span> Arduino IDE </span> for the ESP32 Camera Module. We will also upload the firmware and then work on the <span> Face Recognition </span>part. The script for Face Recognition is written in the python programming language, thus we will also have to <span> install </span> Python and its required <span> Libraries.</span> <br>
+        Earlier we made <a href="">Fingerprint Attendance System</a>  as well as <a href="">RFID Attendance System.</a>  But this is a different project that doesn’t need any biometric contact or any use of the card. The ESP32 Camera will capture image & store the information in Excel file.</p>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    <div class="content">
+        <h2>Bill of Materials</h2>
+
+        <p>The following is the list of Bill of Materials for building an <span> Attendance System Project.</span> TheESP32 CAM when combined with other <span> hardware </span> & <span>firmware</span> identify the object & record attendance.You can purchase all these components from Amazon.</p>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="table">
+         <table border="1"> <!-- border="1" -->
+            <tr>
+                <th>S.No</th>
+                <th>Components</th>
+                <th>Quantity</th>
+                <th>Purchase Link</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>ESP32-CAM Board AI-Thinker</td>
+                <td>1 </td>
+                <td><a href="">Amazon</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>FTDI Module	</td>
+                <td>1</td>
+                <td><a href="">Amazon</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Micro-USB Cable(Type-C)</td>
+                <td>1</td>
+                <td><a href="">Amazon</a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Jumper Wires</td>
+                <td>10</td>
+                <td><a href="">Amazon</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="components">
+        <h2>ESP32 CAM Module</h2>
+
+        <p>The ESP32 Based Camera Module developed by <span> AI-Thinker.</span> The controller is based on a <span> 32-bit CPU </span> & has a combined <span> Wi-Fi + Bluetooth/BLE </span> Chip. It has a built-in <span> 520 KB SRAM </span> with an external <span>4M PSRAM.</span> Its GPIO Pins have support like <span> UART, SPI, I2C, PWM, ADC, and DAC. </span></p>
+
+        <img src="assets/img/2.jpg" alt="">
+
+        <p>The module combines with the OV2640 Camera Module which has the highest Camera Resolution up to 1600 × 1200. The camera connects to the ESP32 CAM Board using a 24 pins gold plated connector. The board supports an SD Card of up to 4GB. The SD Card stores capture images.</p>
+
+        <br><br>
+        <p>To learn in detail about the ESP32 Camera Module you can refer to our previous <a href="#">Getting Started Tutorial.</a> </p>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    <div class="component2">
+        <h2>ESP32-CAM FTDI Connection</h2>
+
+        <p>The board doesn’t have a programmer chip. So In order to program this board, you can use any type of <span> USB-to-TTL Module.</span> There are so many <span> FTDI Module </span> available based on <a href="">CP2102</a>  or <a href="">CP2104</a>  Chip or any other chip.</p>
+        <br>
+        <p>Make a following <span>connection between FTDI Module and ESP32 CAM module.</span></p>
+
+        <img src="assets/img/3.jpg" alt="">
+
+        <table border="1">
+
+            <tr>
+                <td>ESP32-CAM</td>
+                <td>FTDI Programmer</td>
+            </tr>
+
+            <tr>
+                <td>GND</td>
+                <td>GND</td>
+            </tr>
+
+            <tr>
+                <td>5v</td>
+                <Td>VCC</Td>
+            </tr>
+
+            <tr>
+                <td>UOR</td>
+                <td>TX</td>
+            </tr>
+
+            <tr>
+                <td>UOT</td>
+                <td>RX</td>
+            </tr>
+
+            <tr>
+                <td>GPIO0</td>
+                <td>GND</td>
+            </tr>
+
+        </table>
+
+        <br>
+        <p>Connect the <span> 5V <span>& GND Pin of ESP32 to 5V & GND of FTDI Module. Similarly, connect the Rx to UOT and Tx to UOR Pin. And the most important thing, you need to short the IO0 and GND Pin together. This is to put the device in programming mode. Once programming is done you can remove it.</p>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="githubLibrary">
+        <h2>Installing ESP32CAM Library</h2>
+
+        <p>Here we will not use the general ESP webserver example rather another streaming process. Therefore we need to add another ESPCAM library. The esp32cam library provides an object oriented API to use OV2640 camera on ESP32 microcontroller. It is a wrapper of esp32-camera library.</p>
+
+        <img src="assets/img/4.png" alt="">
+
+        <p>Go to the following Github Link and download the zip library as in the image</p>
+<br>
+        <p>Once downloaded add this zip library to Arduino Libray Folder. To do so follow the following steps: <br>
+            Open Arduino -> Sketch -> Include Library -> Add .ZIP Library… -> Navigate to downloaded zip file -> add</p>
+    </div>
+
+    <br>
+    <hr>
+
+    <div class="sourceCode">
+        <h2>Source Code/Program for ESP32 CAM Module</h2>
+
+        <p>Here is a source code for Face Recognition Based Attendance System using ESP32 CAM & OpenCV. Copy the code and paste it in the Arduino IDE.</p>
+
+        
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+</html>
