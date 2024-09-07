@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Esp32 Cam</title>
+</head>
+<body>
+<section id="home">
+    <nav>
+        <ul class="navbar">
+            <li><a href="#home" class="nav-link" data-target="home">Home</a></li>
+            <li><a href="#about" class="nav-link" data-target="about">About</a></li>
+            <li><a href="#contact" class="nav-link" data-target="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="mainContainer">
+        <h1>Face Recognition Based Attendance System using ESP32 CAM</h1>
+
+        <img src="assets/img/1.jpg" alt="no Preview">
+
+        <h2>Overview: Face Recognition Attendance System using ESP32 CAM</h2>
+
+
+        <p>This tutorial introduces the topic of the <span> Face Recognition Based Attendance System </span> using <span> ESP32 CAM Module.</span> We will be using <span> OpenCV </span> & <span>Visual Studio</span> for this application. OpenCV is an open-sourced <span> image processing library </span> that is very widely used not just in industry but also in the field of research and development. Visual Studio is an IDE made by<span> Microsoft</span> for different types of software development & contains completion tools, compilers, and other features to facilitate the<span> software development process.</span> <br> 
+            In this project we will learn, how to create a <span>Face Recognition Based Attendance system </span> using <span>ESP32 CAM</span>span> and <span>Python.</span> The main heavy program will be at the server-side that is our computer, or one can even use raspberry-pi as a server. In this attendance system, we will not just<span> detect</span> the person but also <span>store</span> the information of the person detected in a Microsoft<span> Excel File.</span> Moreover, the duration of time they have stayed in the frame is also recorded into an excel sheet.</p>  
+            <br>
+            <br>
+          <p> The tutorial also contains information about features, pins description, and the method to program ESP32 Camera Module using <span>FTDI Module.</span> We will also set up the<span> Arduino IDE</span> for the ESP32 Camera Module. We will also upload the firmware and then work on the Face Recognition part. The script for Face Recognition is written in the python programming language, thus we will also have to<span> install Python</span> and its required<span> Libraries.</span> <br>
+        Earlier we made Fingerprint Attendance System as well as RFID Attendance System. But this is a different project that doesn’t need any biometric contact or any use of the card. The ESP32 Camera will capture image & store the information in Excel file.</p>
+<br>
+<br>
+        <p>This tutorial introduces the topic of the <span> Face Recognition Based Attendance System </span> using <span> ESP32 CAM Module.</span> We will be using <span> OpenCV </span> &  <span>Visual Studio </span> for this application. OpenCV is an open-sourced <span>image processing library </span>that is very widely used not just in industry but also in the field of research and development. Visual Studio is an IDE made by <span> Microsoft </span> for different types of <span>software development </span> & contains completion tools, compilers, and other features to facilitate the <span>software development process.</span> <br> 
+            In this project we will learn, how to create a </span> Face Recognition Based Attendance system using <span> ESP32 CAM and Python.</span> The main heavy program will be at the server-side that is our computer, or one can even use raspberry-pi as a server. In this attendance system, we will not just <span>detect </span> the person but also store the information of the person detected in a Microsoft Excel File. Moreover, the duration of time they have stayed in the frame is also recorded into an <span> excel sheet.</span> <br>
+            The tutorial also contains information about features, pins description, and the method to program ESP32 Camera Module using <span>FTDI Module.</span> We will also set up the <span> Arduino IDE </span> for the ESP32 Camera Module. We will also upload the firmware and then work on the <span> Face Recognition </span>part. The script for Face Recognition is written in the python programming language, thus we will also have to <span> install </span> Python and its required <span> Libraries.</span>
+    </div>
+
+    <hr>
+    <div class="content">
+        <h2>Bill of Materials</h2>
+
+
+        <p>The following is the list of Bill of Materials for building an Attendance System Project. TheESP32 CAM when combined with other hardware & firmware identify the object & record attendance.You can purchase all these components from Amazon.</p>
+
+        <p>The following is the list of Bill of Materials for building an <span> Attendance System Project.</span> TheESP32 CAM when combined with other <span> hardware </span> & <span>firmware</span> identify the object & record attendance.You can purchase all these components from Amazon.</p>
+
+    <br>
+    <br>
+    <br>
+
+         <table border="1">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Components</th>
+                    <th>Quantity</th>
+                    <th>Purchase Link</th>
+                </tr>
+            </thead>
+            
+            <tr>
+                <td>1</td>
+                <td>ESP32-CAM Board AI-Thinker</td>
+                <td>1 </td>
+                <td><a href="https://amzn.in/d/9DvLN2Q">Amazon</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>FTDI Module	</td>
+                <td>1</td>
+                <td><a href="https://amzn.in/d/3gts9zb">Amazon</a></td>X
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Micro-USB Cable(Type-C)</td>
+                <td>1</td>
+                <td><a href="https://amzn.in/d/8C8kAPO">Amazon</a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Jumper Wires</td>
+                <td>10</td>
+                <td><a href="https://amzn.in/d/0A1p03T">Amazon</a></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <hr>
+    <div class="components">
+        <h2>ESP32 CAM Module</h2>
+
+        <p>The ESP32 Based Camera Module developed by AI-Thinker. The controller is based on a 32-bit CPU & has a combined Wi-Fi + Bluetooth/BLE Chip. It has a built-in 520 KB SRAM with an external 4M PSRAM. Its GPIO Pins have support like UART, SPI, I2C, PWM, ADC, and DAC.</p>
+
+        <p>The ESP32 Based Camera Module developed by <span> AI-Thinker.</span> The controller is based on a <span> 32-bit CPU </span> & has a combined <span> Wi-Fi + Bluetooth/BLE </span> Chip. It has a built-in <span> 520 KB SRAM </span> with an external <span>4M PSRAM.</span> Its GPIO Pins have support like <span> UART, SPI, I2C, PWM, ADC, and DAC. </span></p>
+
+
+        <img src="assets/img/2.jpg" alt="">
+
+        <p>The module combines with the OV2640 Camera Module which has the highest Camera Resolution up to 1600 × 1200. The camera connects to the ESP32 CAM Board using a 24 pins gold plated connector. The board supports an SD Card of up to 4GB. The SD Card stores capture images.</p>
+
+        <br>
+        <br>
+        <p>To learn in detail about the ESP32 Camera Module you can refer to our previous <a href="#">Getting Started Tutorial.</a> </p>
+    </div>
+    <br>
+    <hr>
+    <div class="component2">
+        <h2>ESP32-CAM FTDI Connection</h2>
+
+
+        <p>The board doesn’t have a programmer chip. So In order to program this board, you can use any type of USB-to-TTL Module. There are so many FTDI Module available based on CP2102 or CP2104 Chip or any other chip.</p>
+        <br>
+        <p>Make a following connection between FTDI Module and ESP32 CAM module.</p>
+
+        <p>The board doesn’t have a programmer chip. So In order to program this board, you can use any type of <span> USB-to-TTL Module.</span> There are so many <span> FTDI Module </span> available based on <a href="assets/downloadSource/pdf/cp2104.pdf">CP2102</a>  or <a href="assets/downloadSource/pdf/CP2102-9.pdf">CP2104</a>  Chip or any other chip.</p>
+        <br>
+        <p>Make a following <span>connection between FTDI Module and ESP32 CAM module.</span></p>
+
+
+        <img src="assets/img/3.jpg" alt="">
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ESP32-CAM</th>
+                        <th>FTDI Programmer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GND</td>
+                        <td>GND</td>
+
+                    </tr>
+                    <tr>
+                        <td>5V</td>
+                        <td>VCC</td>
+                    </tr>
+                    <tr>
+                        <td>UOR</td>
+                        <td>TX</td>
+                    </tr>
+                    <tr>
+                        <td>UOT</td>
+                        <td>RX</td>
+                    </tr>
+                    <tr>
+                        <td>GPIO0</td>
+                        <td>GND</td>
+                    </tr>
+                </tbody>
+            </table>
+        <br>
+
+        <p>Connect the 5V & GND Pin of ESP32 to 5V & GND of FTDI Module. Similarly, connect the Rx to UOT and Tx to UOR Pin. And the most important thing, you need to short the IO0 and GND Pin together. This is to put the device in programming mode. Once programming is done you can remove it.</p>
+        <br>
+        <p>Connect the <span> 5V </span>& <span>GND</span>  Pin of ESP32 to 5V & GND of FTDI Module. Similarly, connect the <span>Rx</span>  to <span>UOT</span>  and <span>Tx</span>  to <span>UOR</span>  Pin. And the most important thing, you need to short the <span>IO0</span>  and <span>GND</span>  Pin together. This is to put the device in <span>programming mode.</span>  Once programming is done you can remove it.</p>
+    </div>
+    <hr>
+    <div class="githubLibrary">
+        <h2>Installing ESP32CAM Library</h2>
+
+        <p>Here we will not use the general ESP webserver example rather another streaming process. Therefore we need to add another ESPCAM library. The esp32cam library provides an object oriented API to use OV2640 camera on ESP32 microcontroller. It is a wrapper of esp32-camera library.</p>
+
+        <img src="assets/img/4.jpg" alt="">
+
+        <p>Go to the following <a href="https://github.com/yoursunny/esp32cam">Github Link</a> and download the zip library as in the image</p>
+<br>
+        <p>Once downloaded add this zip library to Arduino Libray Folder. To do so follow the following steps: <br>
+            Open Arduino -> Sketch -> Include Library -> Add .ZIP Library… -> Navigate to downloaded zip file -> add</p>
+    </div>
+
+    <br>
+    <hr>
+
+    <div class="sourceCode">
+        <h2>Source Code/Program for ESP32 CAM Module</h2>
+
+        <p>Here is a source code for Face Recognition Based Attendance System using ESP32 CAM & OpenCV. Copy the code and paste it in the Arduino IDE.</p>
+  
+    <!-- <div class="container">
+        <h2 class="codeHeader">Arduino Uno Code Snippet</h2>
+        <button onclick="copyCode()">Copy Code</button>
+    </div> -->
+
+        <div class="code-box" id="code">
+        <pre><code> 
+        <span>#include &lt;WebServer.h&gt;</span>
+        <span>#include &lt;esp32cam.h&gt;</span>
+        <span>#include &lt;WiFi.h>&gt;</span>
+  
+        const char* WIFI_SSID = "ssid";
+        const char* WIFI_PASS = "password";
+             
+        WebServer server(80);
+             
+        static auto loRes = esp32cam::Resolution::find(320, 240);
+        staic auto midRes = esp32cam::Resolution::find(350, 530);
+        staic auto hiRes = esp32cam::Resolution::find(800, 600);
+        voi serveJpg()
+        {
+          auto frame = esp32cam::capture();
+          if (frame == nullptr) {
+            Serial.println("CAPTURE FAIL");
+            server.send(503, "", "");
+            return;
+          }
+          Serial.printf("CAPTURE OK %dx%d %db\n", frame->getWidth(), frame->getHeight(),
+                        static_cast(frame->size()));
+         
+          server.setContentLength(frame->size());
+          server.send(200, "image/jpeg");
+          WiFiClient client = server.client();
+          frame->writeTo(client);
+        }
+         
+        void handleJpgLo()
+        {
+          if (!esp32cam::Camera.changeResolution(loRes)) {
+            Serial.println("SET-LO-RES FAIL");
+          }
+          serveJpg();
+        }
+         
+        void handleJpgHi()
+        {
+          if (!esp32cam::Camera.changeResolution(hiRes)) {
+            Serial.println("SET-HI-RES FAIL");
+          }
+          serveJpg();
+        }
+         
+        void handleJpgMid()
+        {
+          if (!esp32cam::Camera.changeResolution(midRes)) {
+            Serial.println("SET-MID-RES FAIL");
+          }
+          serveJpg();
+        }
+         
+         
+        void  setup(){
+          Serial.begin(115200);
+          Serial.println();
+          {
+            using namespace esp32cam;
+            Config cfg;
+            cfg.setPins(pins::AiThinker);
+            cfg.setResolution(hiRes);
+            cfg.setBufferCount(2);
+            cfg.setJpeg(80);
+         
+            bool ok = Camera.begin(cfg);
+            Serial.println(ok ? "CAMERA OK" : "CAMERA FAIL");
+          }
+          WiFi.persistent(false);
+          WiFi.mode(WIFI_STA);
+          WiFi.begin(WIFI_SSID, WIFI_PASS);
+          while (WiFi.status() != WL_CONNECTED) {
+            delay(500);
+          }
+          Serial.print("http://");
+          Serial.println(WiFi.localIP());
+          Serial.println("  /cam-lo.jpg");
+          Serial.println("  /cam-hi.jpg");
+          Serial.println("  /cam-mid.jpg");
+         
+          server.on("/cam-lo.jpg", handleJpgLo);
+          server.on("/cam-hi.jpg", handleJpgHi);
+          server.on("/cam-mid.jpg", handleJpgMid);
+         
+          server.begin();
+        }
+         
+        void loop()
+        {
+          server.handleClient();
+        } 
+    </code></pre>
+</div>
+
+    <p>Before Uploading the code you have to make a small change to the code. Change the <span>SSID </span>and<span> password</span> variable and in accordance with your WiFi network.</p>      
+    <br>
+    <p>Now <span>compile</span> and <span>upload</span> it to the ESP32 CAM Board. But during uploading, you have to follow few steps every time.</p>
+    <br>
+    <ul class="unorderedList">
+        <li>Make sure the <span>IO0 pin</span> is shorted with the ground when you have pressed the upload button.</li>
+        <br>
+        <li>If you see the dots and dashes while uploading press the <span> reset button</span> immediately</li>
+        <br>
+        <li>Once the code is uploaded, remove the I01 pin shorting with Ground and press the reset button once again.</li>
+        <br>
+        <li>If the output is the <span>Serial monitor</span>  is still not there then press the reset button again.</li>
+        <br>
+        <br>
+        <p>Now you can see a similar output as in the image below.</p>
+        <br>
+        <br>
+        <img src="assets/img/5.png" alt="">
+        <br>
+        <p>Here, copy the IP address visible, we will be using it to edit the URL in python code</p>
+    </ul>
+    <br>
+    <br>
+    <hr>
+
+    <div class="visualStudio">
+
+        <h2>Installing Visual Studio</h2>
+        <br>
+        <br>
+        <p>Now in order to proceed further, we need to <span>Install Visual studio.</span>  We are doing so because there are certain <span>dependencies</span>  that we will be required, to install the <span>libraries,</span>  later in this tutorial. To install go to this <a href="https://visualstudio.microsoft.com/"> Visual Studio</a> website. Then, download the latest community version.</p>
+        <br>
+        <img src="assets/img/6.png" alt="">
+        <br>
+        <br>
+        <p>Once downloaded <span>install</span>  the software a welcome installation screen would appear, now select the <span>community version.</span> </p>
+        <br>
+        <p>After this from numerous selecting boxes, select Desktop development with <span>C++.</span>  At the right-hand side select the boxes as in the image below.</p>
+        <br>
+        <img src="assets/img/7.png" alt="">
+        <br>
+        <p>Now that you have selected the click on <span>Install/Modify</span>  at the Right corner below. This process will take time as it will download large files.</p>
+        <br>
+        <p>Once installed it will ask for restarting the PC. So that will be done automatically.</p>
+        <br>
+        <p>Now open the downloaded zip folder from the link below & Extract it.</p>
+        <br>
+        <div class="download">
+            <i>Download: <a href="assets/downloadSource/python code.zip">SOURCE FILES</a></i>
+        </div>
+        <br>
+        <p>Now open the  <span>command prompt</span> and reach the  <span>same directory.</span></p>
+        <br>
+        <p>In command prompt write following command:</p>
+    
+    </div>
+
+    <div class="code-container" id="code">
+        <div class="code-line"><span class="line-number">1</span><span class="code">pip install -r requirements.txt</span></div>
+    </div>
+<br>
+<br>
+    <div class="cmdImage">
+        <img src="assets/img/8.png" alt="">
+        <br>
+        <br>
+        <p>And press <span> enter.</span> All the necessary files will be installed.</p>
+        <br>
+        <br>
+        <p>Now we need to add the <span> users</span> who need to be detected, in the image_folder folder(this is inside the zip folder that you downloaded).</p>
+        <br>
+        <br>
+        <img src="assets/img/9.png" alt="">
+        <br>
+        <br>
+        <p>In my case I have added the <span>images</span> of 3 people, one is me and the other two are celebrities.</p>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+
+    <div class="pythonCode">
+        <h2>Python Code for  Face Recognition Attendance System</h2>
+        <br>
+        <p>Now copy the code in <span>face_detection.py</span>  We also need to edit it.</p>
+        <br>
+        <br>
+
+        <div>
+            <pre><code>
+import pandas as pd
+import cv2
+import urllib.request
+import numpy as np
+import os
+from datetime import datetime
+import face_recognition
+
+path = r'D:\python\attendace\attendace\image_folder'
+url='http://192.168.231.162/cam-hi.jpg'
+##'''cam.bmp / cam-lo.jpg /cam-hi.jpg / cam.mjpeg '''
+ 
+if 'Attendance.csv' in os.listdir(os.path.join(os.getcwd(),'attendace')):
+    print("there iss..")
+    os.remove("Attendance.csv")
+else:
+    df=pd.DataFrame(list())
+    df.to_csv("Attendance.csv")
+    
+ 
+images = []
+classNames = []
+myList = os.listdir(path)
+print(myList)
+for cl in myList:
+    curImg = cv2.imread(f'{path}/{cl}')
+    images.append(curImg)
+    classNames.append(os.path.splitext(cl)[0])
+print(classNames)
+ 
+ 
+def findEncodings(images):
+    encodeList = []
+    for img in images:
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        encode = face_recognition.face_encodings(img)[0]
+        encodeList.append(encode)
+    return encodeList
+ 
+ 
+def markAttendance(name):
+    with open("Attendance.csv", 'r+') as f:
+        myDataList = f.readlines()
+        nameList = []
+        for line in myDataList:
+            entry = line.split(',')
+            nameList.append(entry[0])
+            if name not in nameList:
+                now = datetime.now()
+                dtString = now.strftime('%H:%M:%S')
+                f.writelines(f'\n{name},{dtString}')
+ 
+ 
+encodeListKnown = findEncodings(images)
+print('Encoding Complete')
+ 
+#cap = cv2.VideoCapture(0)
+ 
+while True:
+    #success, img = cap.read()
+    img_resp=urllib.request.urlopen(url)
+    imgnp=np.array(bytearray(img_resp.read()),dtype=np.uint8)
+    img=cv2.imdecode(imgnp,-1)
+# img = captureScreen()
+    imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+    imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
+ 
+    facesCurFrame = face_recognition.face_locations(imgS)
+    encodesCurFrame = face_recognition.face_encodings(imgS, facesCurFrame)
+ 
+    for encodeFace, faceLoc in zip(encodesCurFrame, facesCurFrame):
+        matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
+        faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
+# print(faceDis)
+        matchIndex = np.argmin(faceDis)
+ 
+        if matches[matchIndex]:
+            name = classNames[matchIndex].upper()
+# print(name)
+            y1, x2, y2, x1 = faceLoc
+            y1, x2, y2, x1 = y1 * 4, x2 * 4, y2 * 4, x1 * 4
+            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.rectangle(img, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
+            cv2.putText(img, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+            markAttendance(name)
+ 
+    cv2.imshow('Webcam', img)
+    key=cv2.waitKey(5)
+    if key==ord('q'):
+        break
+cv2.destroyAllWindows()
+cv2.imread
+            </code></pre>
+        </div>
+<br>
+        <p>First, we need to update the <span>URL variable</span>  in the code with the URL copied from Arduino serial monitor earlier.</p>
+        <br>
+        <br>
+        <p>Secondly, update the <span>path variable</span>  in the code with the path of the <span>image_folder</span> folder.</p>
+        <br>
+        <img src="assets/img/10.jpg" alt="">
+        <br>
+        <p>Now we are good to go. So run the code & Stand in front of the <span>ESP32 Camera</span>  by showing the face directly to Camera.</p>
+        <br>
+        <img src="assets/img/" alt="">
+        <br>
+        <p>Congrats the face has been detected.</p>
+        <br>
+        <br>
+        <p>Whenever the image of Usain Bolt & Elon Musk is brought in front of the camera, the face is identified and attendance is recorded.</p>
+        <br>
+        <p>Now press <span>‘q’ </span> to close.</p>
+        <br>
+        <p>Now open the  <span>Attendace.csv</span> file, it is in the current working directory. Here you will get all the information of people who were detected and at what time.</p>
+        <br>
+        <img src="assets/img/attendance.png" alt="">
+        <br>
+        <br>
+        <p>Now, this <span>ESP32 CAM Face Recognition Based Attendance System</span>  can be used as an actual project where you are not just detecting the students or attendees but also storing their <span>attendance</span>  in an  <span>excel file</span>.</p>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    <section id="about">
+    <div class="footer" style="font-family: Arial, sans-serif; padding: 20px; background-color: #f1f1f1; text-align: center;">
+        <footer>
+            <h3>ABOUT US</h3>
+            <br>
+            <br>
+            <p>Future X is a dynamic tech company dedicated to solving global challenges through innovative solutions. With a focus on cutting-edge technology, Future X empowers individuals and businesses to overcome obstacles and thrive. Committed to excellence, we drive positive change, making the world a better, more connected place for everyone.</p>
+        </footer>
+        <p class="copyright">© 2024 <a href="#">Future X</a> All rights reserved.</p>
+    </div>
+</section>
+
+    <br>
+    <br>
+
+    <section id="contact">
+    <footer>
+        <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f1f1f1; text-align: center;">
+          <h3>Contact Us</h3>
+          <p>Email: <a href="mailto:contact@futurex.com">imhavingfeelingsforyou@gmail.com</a></p>
+          <p>Phone: <a href="tel:+18001234567">+91 9789874597</a></p>
+          <p>Address: 123 Silicon Valley, Tech City, Banglore 12546</p>
+        </div>
+      </footer>
+    </section>
+
+
+</section>
+    <script src="app.js"></script>
+</body>
+</html>
